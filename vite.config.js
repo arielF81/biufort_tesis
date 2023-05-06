@@ -1,11 +1,20 @@
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { registerSW } from 'virtual:pwa-register';
 
+if ('serviceWorker' in navigator) {
+  registerSW();
+}
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), VitePWA({
+  plugins: [vue(),
+            VitePWA({
+               devOptions: {
+        enabled: true,
+        type: 'module',
+      },
     registerType: 'autoUpdate', 
     injectRegister: 'auto',
     workbox: {
